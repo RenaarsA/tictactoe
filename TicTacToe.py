@@ -4,9 +4,20 @@ from tkinter import messagebox #paziņojumi, ieteikumi
 
 mansLogs=Tk()
 mansLogs.title('TicTacToe')
-
 speletajsX=True
 count=0
+
+def disableButton():
+    btn1.config(state=DISABLED)
+    btn2.config(state=DISABLED)
+    btn3.config(state=DISABLED)
+    btn4.config(state=DISABLED)
+    btn5.config(state=DISABLED)
+    btn6.config(state=DISABLED)
+    btn7.config(state=DISABLED)
+    btn8.config(state=DISABLED)
+    btn9.config(state=DISABLED)
+    return
 
 def btnClick(button): #padod tukšu pogu
     global speletajsX,count #kādi mainīgie tiks izmantoti
@@ -15,11 +26,13 @@ def btnClick(button): #padod tukšu pogu
         speletajsX=False
         count+=1
         checkWinner()
+        
     elif  button['text']=='' and speletajsX==False:
         button['text']='O'
         speletajsX=True
         count+=1
         checkWinner()
+        
     else:
         messagebox.showerror('TicTacToe','Šeit kāds ir ieklikšķinājis!')
     return
@@ -35,6 +48,7 @@ def checkWinner():
         btn2['text']=='X'and btn5['text']=='X'and btn8['text']=='X' or 
         btn3['text']=='X'and btn6['text']=='X'and btn9['text']=='X'):
         winner=True
+        disableButton()
         messagebox.showinfo('TicTacToe','Spelētājs X ir uzvarētājs!')
     elif (btn1['text']=='O'and btn2['text']=='O'and btn3['text']=='O' or 
         btn4['text']=='O' and btn5['text']=='O'and btn6['text']=='O' or 
@@ -45,13 +59,15 @@ def checkWinner():
         btn2['text']=='O' and btn5['text']=='O'and btn8['text']=='O' or 
         btn3['text']=='O' and btn6['text']=='O'and btn9['text']=='O'):
         winner=True
+        disableButton()
         messagebox.showinfo('TicTacToe','Speletājs O ir uzvarētājs')
     elif  count==9:
-       
         winner=False
-        
+        disableButton()
         messagebox.showinfo('TicTacToe','Neizšķirts')
     return
+
+
 
 btn1=Button(mansLogs,text='',width=6,height=3,font=('Helvica',24),command=lambda:btnClick(btn1))
 btn2=Button(mansLogs,text='',width=6,height=3,font=('Helvica',24),command=lambda:btnClick(btn2))
