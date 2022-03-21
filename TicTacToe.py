@@ -7,6 +7,10 @@ mansLogs.title('TicTacToe')
 speletajsX=True
 count=0
 
+
+
+
+
 def disableButton():
     btn1.config(state=DISABLED)
     btn2.config(state=DISABLED)
@@ -19,7 +23,34 @@ def disableButton():
     btn9.config(state=DISABLED)
     return
 
+def reset():
+    btn1.config(state=NORMAL)
+    btn2.config(state=NORMAL)
+    btn3.config(state=NORMAL)
+    btn4.config(state=NORMAL)
+    btn5.config(state=NORMAL)
+    btn6.config(state=NORMAL)
+    btn7.config(state=NORMAL)
+    btn8.config(state=NORMAL)
+    btn9.config(state=NORMAL)
+    btn1['text']=''
+    btn2['text']=''
+    btn3['text']=''
+    btn4['text']=''
+    btn5['text']=''
+    btn6['text']=''
+    btn7['text']=''
+    btn8['text']=''
+    btn9['text']=''
+
+    global winner,count,speletajsX
+    winner=False
+    count=0
+    speletajsX=True
+    return 0
+
 def btnClick(button): #padod tukšu pogu
+       
     global speletajsX,count #kādi mainīgie tiks izmantoti
     if button['text']=='' and speletajsX==True: #spēlē X spēlētājs
         button['text']='X' #maina uz X
@@ -67,6 +98,24 @@ def checkWinner():
         messagebox.showinfo('TicTacToe','Neizšķirts')
     return
 
+def infoLogs():
+    jaunsLogs=Toplevel()
+    jaunsLogs.title('Info par programmu')
+    jaunsLogs.geometry('600x300')
+    apraksts=Label(jaunsLogs,text='SPĒLES NOTEIKUMI')
+    apraksts.grid(row=0,column=0)
+    apraksts=Label(jaunsLogs,text='Spēlētāji pēc kārtas lauka brīvajās rūtiņās izvieto pa vienai savai figūrai (krustiņus vai nullītes).')
+    apraksts.grid(row=1,column=0)
+    apraksts=Label(jaunsLogs,text='Pirmo gājienu izlaist nav iespējams.')
+    apraksts.grid(row=2,column=0)
+    apraksts=Label(jaunsLogs,text='Pirmo gājienu veic spēlētājs, kurš spēlē ar krustiņiem.')
+    apraksts.grid(row=3,column=0)
+    apraksts=Label(jaunsLogs,text='Spēlē uzvar spēlētājs, kurš izvietojis kopā 3 savas figūras vienā rindā, kolonnā vai uz diagonāles.')
+    apraksts.grid(row=4,column=0)
+    apraksts=Label(jaunsLogs,text='Spēles rezultāts ir neizšķirts, ja uz spēles lauka nav palikusi neviena brīva rūtiņa un spēlē neviens nav uzvarējis.')
+    apraksts.grid(row=5,column=0)
+    return 0
+
 
 
 btn1=Button(mansLogs,text='',width=6,height=3,font=('Helvica',24),command=lambda:btnClick(btn1))
@@ -78,6 +127,14 @@ btn6=Button(mansLogs,text='',width=6,height=3,font=('Helvica',24),command=lambda
 btn7=Button(mansLogs,text='',width=6,height=3,font=('Helvica',24),command=lambda:btnClick(btn7))
 btn8=Button(mansLogs,text='',width=6,height=3,font=('Helvica',24),command=lambda:btnClick(btn8))
 btn9=Button(mansLogs,text='',width=6,height=3,font=('Helvica',24),command=lambda:btnClick(btn9))
+
+galvenaIzvelne=Menu(mansLogs)
+mansLogs.config(menu=galvenaIzvelne)
+opcijas=Menu(galvenaIzvelne,tearoff=False)
+galvenaIzvelne.add_cascade(label='Opcijas',menu=opcijas)
+opcijas.add_command(label='Jauna spēle',command=reset)
+opcijas.add_command(label='Iziet',command=mansLogs.quit)
+galvenaIzvelne.add_command(label='Par programmu',command=infoLogs)
 
 btn1.grid(row=0,column=0)
 btn2.grid(row=0,column=1)
